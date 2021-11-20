@@ -4,6 +4,7 @@ import contextlib
 import functools
 
 import pygame
+from pygame import draw, display
 import numpy as np
 
 BLACK = (0, 0, 0)
@@ -24,7 +25,6 @@ class Game:
         "cells", 
         "cell_width", 
         "cell_height",
-        "rect_factory",
     )
 
     def __init__(
@@ -40,12 +40,12 @@ class Game:
         self.height = height
         self.ncols = ncols
         self.nrows = nrows
-        self.win = pygame.display.set_mode((width, height))
+        self.win = display.set_mode((width, height))
         self.cells = np.random.choice((0, 1), size=(ncols, nrows), p=(.90, .10))
         self.cell_width = width / ncols
         self.cell_height = height / nrows
 
-        pygame.display.set_caption("Game of life")
+        display.set_caption("Game of life")
 
     def draw(self):
         self.win.fill(WHITE)
@@ -58,9 +58,9 @@ class Game:
                     self.cell_width,
                     self.cell_height,
                 )
-                pygame.draw.rect(self.win, BLACK, rect)
+                draw.rect(self.win, BLACK, rect)
 
-        pygame.display.update()
+        display.update()
 
     def update(self):
 
